@@ -1,0 +1,5 @@
+LIBRARY library.dll
+EXPORTS
+    File1_Funkce1
+    File1_Funkce2
+    Checkpoint

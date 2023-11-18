@@ -1,0 +1,15 @@
+Pacman (or variant)
+
+Game must fulfill following functionalities:
+
+compliance with the rules of the game, collecting bonuses, points, cherries, teleports, etc.
+different types of ghost AI
+load map from file (labyrinth *´+ position of bonuses and ghost home)
+configurable game from file (speed of ghosts, speed of player, duration of game modes, ...)
+scalable game difficulty (by difficulty, by different behaviour)
+Where you should use polymorphism? (suggested)
+
+Controls: player, ghost (+ AI variants)
+Game mode: classic (ghost follow their strategies), rage (ghost follow player), invulnerable (ghost are slower, may be killed by player)
+Field: ground, wall, point, bonus (change mode), cherries (more points), teleport
+Interface: console, ncurses, SDL, OpenGL (+ variants)

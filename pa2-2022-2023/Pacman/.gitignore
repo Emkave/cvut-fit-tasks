@@ -1,0 +1,5 @@
+*.out
+*.o
+sources/*.o
+*.log
+*.json
