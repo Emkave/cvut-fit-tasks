@@ -45,27 +45,26 @@ void clear_comment_linked_list(Review * review) {
     review->tail = NULL;
 }
 
-typedef Review type;        // Some kind of template class
+typedef Review type;
 
 typedef struct Vector {
-    size_t size;            // Size of the vector
-    size_t capacity;        // Total capacity of the vector
+    size_t size;
+    size_t capacity;
     size_t num_of_revs;
-    type * arr;             // The values it stores
+    type * arr;
 
-    // The functions below are self describing.
     void (*emplace_back)     (struct Vector * const __restrict self, const type * const __restrict val, char * comment, const size_t rating);
     int (*clear)            (struct Vector * const __restrict self);
     type*(*at)              (struct Vector * const __restrict self, const size_t index);
 } Vector;
 
 
-int clear_vector(Vector * const __restrict self) {  // Also clears the vector, just naming matters
+int clear_vector(Vector * const __restrict self) {
     if (self->arr != NULL) {
         for (size_t i=0; i<self->size; i++) {
-            clear_comment_linked_list(&self->arr[i]);   // We clear comments under each review
+            clear_comment_linked_list(&self->arr[i]);
         }
-        free(self->arr);            // We clear the vector
+        free(self->arr);
         self->capacity = 0;
         self->size = 0;
         self->num_of_revs = 0;
@@ -74,7 +73,7 @@ int clear_vector(Vector * const __restrict self) {  // Also clears the vector, j
 }
 
 
-type * at_vector(Vector * const __restrict self, const size_t index) {  // Returning pointer to the value at index
+type * at_vector(Vector * const __restrict self, const size_t index) {
     return &self->arr[index];
 }
 
