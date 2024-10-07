@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./sproject_html.xsl"?>
+<!DOCTYPE sproject SYSTEM "sproject.dtd">
+<sproject>
+    <course database="Oracle" version="11">
+        <cname>Databázové systémy</cname>
+            <code>BIE-DBS.21</code>
+            <semester>B212</semester>
+            <seminar>Tuesday 14:30, Both weeks, paralelka 1242065315905</seminar>
+    </course>
+        <author>
+            <aname>Natik Agaev</aname>
+            <uname>agaevnat</uname>
+            <email>agaevnat@fit.cvut.cz</email>
+        </author>
+    <content>
+        <declaration>I declare that I have developed my semestral work independently. All the sources I used are listed in the section References.</declaration>
+            <title>Hearts of Iron: CVUT Edition</title>
+        <description>
+            <title>Description</title>
+                    <para>!!! DISCLAIMER !!! This project might seem to be extremistic and offensive for someone. Just to clarify: this project is only for educational purposes. </para>
+                    <para></para>
+                    <para>The data base will contains stats of an european country. </para>
+                    <para></para>
+                    <para>A country will have several characteristics that would decide it&apos;s fate in the field of European politics.</para>
+                    <para></para>
+                    <para>The countries selected might be maden up or taken from the real world. </para>
+                    <para></para>
+                    <para>A country will have characteristics like {</para>
+                    <para>	Geography:</para>
+                    <para>		-Size</para>
+                    <para>		-Average Temperature</para>
+                    <para></para>
+                    <para>	Economy:</para>
+                    <para>		-Gross Domestic Product</para>
+                    <para>		-Stability</para>
+                    <para>		-Curroption rate</para>
+                    <para></para>
+                    <para>	Resources:</para>
+                    <para>		-Oil</para>
+                    <para>		-Gas</para>
+                    <para>		-Diamonds</para>
+                    <para>		-Gold</para>
+                    <para>		-Iron</para>
+                    <para>		-Coal</para>
+                    <para></para>
+                    <para>	Politics:</para>
+                    <para>		-Ideology (Communism, Faschism, Capitalism, Anarchism, Monarchism)</para>
+                    <para>		-Fraction</para>
+                    <para>		-Government support</para>
+                    <para>		</para>
+                    <para>		Society:</para>
+                    <para>			-Population</para>
+                    <para>			-Population growth rate</para>
+                    <para>			-Population death rate</para>
+                    <para>			-Average lifespan</para>
+                    <para>			-Tax rates</para>
+                    <para>			-Happiness</para>
+                    <para>			</para>
+                    <para>			Millitarism:</para>
+                    <para>				-Consription rate</para>
+                    <para>				-Number of tanks</para>
+                    <para>				-Number of troops</para>
+                    <para>				-Number of artilliries</para>
+                    <para>				-Number of fighters</para>
+                    <para>				-Number of bombers</para>
+                    <para>				-Number of millitary factories</para>
+                    <para>				-Number of nuclear bombs</para>
+                    <para>				-Number of rifles</para>
+                    <para>				-Tactics (defense, blitzkrieg, classic)</para>
+                    <para>}</para>
+                    <para></para>
+                    <para>The idea - political simulator, where each country has a chance to show its capability to other countries.</para>
+                    <para>Each country has series of characteristics, which affects country&apos;s future decisions and actions.</para>
+                    <para></para>
+                    <para>Economy of a country affects on people&apos;s mood, government and war support.</para>
+                    <para></para>
+                    <para>Resources affect on gross domestic product of a country and affects its production and factory number.</para>
+                    <para></para>
+                    <para>Politics might affect on global politics. Some countries might become hostile to another country or create a fraction. Politics also affect on people&apos;s government support and might or not escalate up to revolution.</para>
+                    <para></para>
+                    <para>Society - main core of a country. Happy people are ready to protect its land. The rate of taxes depends on the average sallary of the people. The education level affects country&apos;s economy.</para>
+                    <para></para>
+                    <para>Millitarism is a setting, that demonstrates the power of a country. The characteristics that affect on Militarism are consription level and other. The consription level depends on how the society is willing to defend or attach a land. The more happy people are ready to defend their land. The hostile society is more likely to attack others. </para>
+                    <para></para>
+                    <para>We will be able to modify each country&apos;s characteristics and see the results of these changes.</para>
+                    <para></para>
+                    <para>RC</para>
+        </description>
+        <data_model>
+            <title>Conceptual schema</title>
+            <dm_picture>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="conceptual_schema.png"/>
+                    </imageobject>
+                </mediaobject>
+            </dm_picture>
+            <dm_discussion>
+                        <para>The scheme has no infinte loops.</para>
+            </dm_discussion>
+        </data_model>
+        <relational_model>
+            <title>Relational schema</title>
+            <rm_picture>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="relational_schema.png"/>
+                    </imageobject>
+                </mediaobject>
+            </rm_picture>
+        </relational_model>
+        <queries>
+            <title>Queries</title>
+            <dotazy>
+                    <dotaz dotaz_id="D1">
+                        <popis_dotazu>
+                                <para>Show the countries more than 50.000.000 population</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Society}(population &gt; 500000)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN SOCIETY
+WHERE population &gt; 500000;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D2">
+                        <popis_dotazu>
+                                <para>Show countries that have more than 4 thousand square area coverage </para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Geography}(size &lt; 200000)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN GEOGRAPHY
+WHERE size &lt; 200000;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D3">
+                        <popis_dotazu>
+                                <para>Show countries of NATO fraction.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Politics}(fraction = &apos;Allies&apos;)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN POLITICS
+WHERE fraction = &apos;Allies&apos;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D4">
+                        <popis_dotazu>
+                                <para>Show the poor countries, i.e. the countries with a gdp less than 100 million</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Economy}(gdp &lt; 100000000)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN ECONOMY
+WHERE gdp &lt; 100000000;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D5">
+                        <popis_dotazu>
+                                <para>Show the comintern countries&apos;s names</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Politics}(fraction = &apos;Comintern&apos;)[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN POLITICS
+WHERE fraction = &apos;Comintern&apos;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D6">
+                        <popis_dotazu>
+                                <para>Show the countries&apos;s name, millitary potential, and the millitary tactics</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Millitarism}</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN MILLITARISM;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D7">
+                        <popis_dotazu>
+                                <para>Rank the countries names with the lowest stability</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Economy}(stability &lt; 50)[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN ECONOMY
+WHERE stability &lt; 50;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D8">
+                        <popis_dotazu>
+                                <para>Show the countries with the lowest government support</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Politics}(gover_supp &lt; 50)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN POLITICS
+WHERE gover_supp &lt; 50;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D9">
+                        <popis_dotazu>
+                                <para>Print out the fascist countries, where number population is bigger than country size</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Geography*Society}(¬(population &lt; size))[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN GEOGRAPHY
+NATURAL JOIN SOCIETY
+WHERE NOT(population &lt; size);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D10">
+                        <popis_dotazu>
+                                <para>Show the countries with the lowest population growth </para>
+                        </popis_dotazu>
+                            <relacni_algebra>{{Nation*Society}[country_name, pop_growth]}\{{Nation*Society}[country_name, pop_growth](pop_growth &gt; 1)}</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name,
+                pop_growth
+FROM NATION
+NATURAL JOIN SOCIETY
+EXCEPT
+SELECT DISTINCT *
+FROM (
+    SELECT DISTINCT country_name,
+                    pop_growth
+    FROM NATION NATION1
+    NATURAL JOIN SOCIETY SOCIETY1
+) R1
+WHERE pop_growth &gt; 1;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D11">
+                        <popis_dotazu>
+                                <para>Show the nations that does not have a capital city</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation\Nation(¬(¬(capital_name != &apos;Undefined&apos;)))}[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM (
+    SELECT DISTINCT *
+    FROM NATION
+    EXCEPT
+    SELECT DISTINCT *
+    FROM NATION NATION1
+    WHERE NOT(NOT(capital_name != &apos;Undefined&apos;))
+) R1;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D12">
+                        <popis_dotazu>
+                                <para>Show the communist nations</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Politics}(ideology = &apos;Communism&apos;)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN POLITICS
+WHERE ideology = &apos;Communism&apos;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D13">
+                        <popis_dotazu>
+                                <para>Show the countries that does not have at least 200 tanks </para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Millitarism}(tank_num &lt; 200)[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN MILLITARISM
+WHERE tank_num &lt; 200;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D14">
+                        <popis_dotazu>
+                                <para>Show the country&apos;s names and their society&apos;s happiness only</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Society}(happiness &gt; 90)[country_name, happiness]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name,
+                happiness
+FROM NATION
+NATURAL JOIN SOCIETY
+WHERE happiness &gt; 90;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D15">
+                        <popis_dotazu>
+                                <para>Show nation&apos;s names and their identification value</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation[country_name, id]}</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name,
+                id
+FROM NATION;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D16">
+                        <popis_dotazu>
+                                <para>Show nation&apos;s names that have more than 70% of happiness  and an average lifespan or a country with gdp over one trillion</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Society*Economy}[country_name, happiness, lifespan, gdp](happiness &gt; 70 ∨ gdp &gt; 60000)</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM (
+    SELECT DISTINCT country_name,
+                    happiness,
+                    lifespan,
+                    gdp
+    FROM NATION
+    NATURAL JOIN SOCIETY
+    NATURAL JOIN ECONOMY
+) R1
+WHERE happiness &gt; 70 OR gdp &gt; 60000;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D17">
+                        <popis_dotazu>
+                                <para>Show a country that does not have a capital</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Geography}(¬(capital_name != &apos;Undefined&apos;))[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN GEOGRAPHY
+WHERE NOT(capital_name != &apos;Undefined&apos;);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D18">
+                        <popis_dotazu>
+                                <para>Show the whole database</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Geography*Society*Politics*Millitarism*Economy}</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN GEOGRAPHY
+NATURAL JOIN SOCIETY
+NATURAL JOIN POLITICS
+NATURAL JOIN MILLITARISM
+NATURAL JOIN ECONOMY;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D19">
+                        <popis_dotazu>
+                                <para>List countries&apos;s name, where:
+1. gdp is more than 10000000
+2. death rate is not bigger than birth rate
+3. happiness is not lower than 50
+4. has at most 1000 nukes OR it has more than 4000 tanks
+5. at most 1000000 for not all natural resources</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Economy*Society*Resources*Millitarism}(gdp &lt; 20000 ∧ pop_death &gt; pop_growth ∧ (nuke &lt; 1000 ∨ tank_num &gt; 4000) ∧ happiness &gt; 50 ∧ (oil &lt; 1000000 ∨ gas &lt; 1000000 ∨ diamond &lt; 1000000 ∨ gold &lt; 1000000 ∨ iron &lt; 1000000 ∨ coal &lt; 1000000))[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN ECONOMY
+NATURAL JOIN SOCIETY
+NATURAL JOIN RESOURCES
+NATURAL JOIN MILLITARISM
+WHERE gdp &lt; 20000 AND pop_death &gt; pop_growth AND (nuke &lt; 1000 OR tank_num &gt; 4000) AND happiness &gt; 50 AND (oil &lt; 1000000 OR gas &lt; 1000000 OR diamond &lt; 1000000 OR gold &lt; 1000000 OR iron &lt; 1000000 OR coal &lt; 1000000);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D20">
+                        <popis_dotazu>
+                                <para>Show nations&apos; names with the great millitary potential in ascending order if:
+1. Conscription rate is 10
+2. More than 60.000.000 people
+3. Nation is NOT Axis fraction or NOT Allies fraction
+4. Death rate is bigger than birth rate and lifespan is more than 60 years OR happiness is lesser than 50</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Millitarism*Society*Politics}(conscript = 10 ∧ population &gt; 60000000 ∧ ¬(fraction = &apos;Axis&apos; ∧ fraction = &apos;Allies&apos;) ∧ ((pop_death &gt; pop_growth) ∨ (lifespan &gt; 60 ∨ happiness &lt; 50)))[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN MILLITARISM
+NATURAL JOIN SOCIETY
+NATURAL JOIN POLITICS
+WHERE conscript = 10 AND population &gt; 60000000 AND NOT(fraction = &apos;Axis&apos; AND fraction = &apos;Allies&apos;) AND ((pop_death &gt; pop_growth) OR (lifespan &gt; 60 OR happiness &lt; 50));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D21">
+                        <popis_dotazu>
+                                <para>Show country names where number of conscripted troops are not bigger than expected</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Millitarism*Society}(troop_num &gt; (population*conscript/100))[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN MILLITARISM
+NATURAL JOIN SOCIETY
+WHERE troop_num &gt; (population * conscript / 100);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D22">
+                        <popis_dotazu>
+                                <para>Show a allienced nation with the largest amount of nuclear warheads and its count</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Millitarism*Politics}(¬(fraction = &apos;None&apos;))[country_name, nuke]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name,
+                nuke
+FROM NATION 
+NATURAL JOIN MILLITARISM
+NATURAL JOIN POLITICS
+WHERE NOT(fraction = &apos;None&apos;);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D23">
+                        <popis_dotazu>
+                                <para>Show  democratic states of allies fraction, where the corruption rate is smaller than the people&apos;s happiness and gdp lower than 10000 OR show states where the corruption rate is smaller than happiness xor stability, but stability higher than happiness</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Politics*Society*Economy}(fraction = &apos;Allies&apos; ∧ ideology = &apos;Democracy&apos; ∧ ((curruption_rate &lt; happiness ∧ gdp &lt; 10000) ∨ ((¬(curruption_rate &gt; happiness) ∨ (curruption_rate &lt; stability)) ∧ ¬(curruption_rate &lt; happiness ∧ curruption_rate &lt; stability))))[country_name]</relacni_algebra>
+                            <sql>SELECT DISTINCT country_name
+FROM NATION
+NATURAL JOIN POLITICS
+NATURAL JOIN SOCIETY
+NATURAL JOIN ECONOMY
+WHERE fraction = &apos;Allies&apos; AND ideology = &apos;Democracy&apos; AND ((curruption_rate &lt; happiness AND gdp &lt; 10000) OR ((NOT(curruption_rate &gt; happiness) OR (curruption_rate &lt; stability)) AND NOT(curruption_rate &lt; happiness AND curruption_rate &lt; stability)));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D24">
+                        <popis_dotazu>
+                                <para>Show communist states ids, where the lifespan is exceeding the ratio of population growth and death</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Society*Politics}(ideology = &apos;Communism&apos; ∧ (lifespan &gt; (pop_growth/pop_death/0.1)))</relacni_algebra>
+                            <sql>SELECT DISTINCT *
+FROM NATION
+NATURAL JOIN SOCIETY
+NATURAL JOIN POLITICS
+WHERE ideology = &apos;Communism&apos; AND (lifespan &gt; (pop_growth / pop_death / 0.1));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D25">
+                        <popis_dotazu>
+                                <para>Show democratic countries or communist countries&apos;s ids that has more than 90 happiness and a country without a capital city OR show axis countries with more rockets than tanks and nukes combined</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Millitarism*Society*Politics}(((ideology = &apos;Democracy&apos; ∨ ideology = &apos;Communism&apos;) ∧ happiness &gt; 90) ∨ (fraction = &apos;Axis&apos; ∧ rocket_num &gt; (tank_num + nuke)))[id]</relacni_algebra>
+                            <sql>SELECT DISTINCT id
+FROM NATION
+NATURAL JOIN MILLITARISM
+NATURAL JOIN SOCIETY
+NATURAL JOIN POLITICS
+WHERE ((ideology = &apos;Democracy&apos; OR ideology = &apos;Communism&apos;) AND happiness &gt; 90) OR (fraction = &apos;Axis&apos; AND rocket_num &gt; (tank_num + nuke));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D26">
+                        <popis_dotazu>
+                                <para>Print minimum value of corruption rate possible</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation*Economy}</relacni_algebra>
+                            <sql>SELECT MIN(curruption_rate)
+FROM NATION
+NATURAL JOIN ECONOMY;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D27">
+                        <popis_dotazu>
+                                <para>Show the pairs of each attribute in the table of a nation with millitarism</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Nation×Millitarism}</relacni_algebra>
+                            <sql>SELECT DISTINCT NATION.id,
+                NATION.country_name,
+                NATION.capital_name,
+                MILLITARISM.id AS id_1,
+                MILLITARISM.nation_id,
+                MILLITARISM.conscript,
+                MILLITARISM.tank_num,
+                MILLITARISM.troop_num,
+                MILLITARISM.rocket_num,
+                MILLITARISM.bomb_num,
+                MILLITARISM.mil_factories,
+                MILLITARISM.nuke,
+                MILLITARISM.rifle_num,
+                MILLITARISM.tactic
+FROM NATION
+CROSS JOIN MILLITARISM;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D28">
+                        <popis_dotazu>
+                                <para>Show the country&apos;s name, if the capital is exists.</para>
+                        </popis_dotazu>
+                            <sql>SELECT country_name
+FROM NATION
+WHERE EXISTS 
+(SELECT id FROM NATION WHERE country_name = &apos;Soviet Union&apos;) AND capital_name = &apos;Moscow&apos;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D29">
+                        <popis_dotazu>
+                                <para>Delete a nation that has a name &apos;21&apos; </para>
+                        </popis_dotazu>
+                            <sql>DELETE FROM Nation
+WHERE country_name IN 
+  (SELECT country_name
+    FROM Nation
+    WHERE country_name = &apos;21&apos;);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D30">
+                        <popis_dotazu>
+                                <para>Add and delete country named Azerbaijan with its capital of Baku. Give it id of 55 and then delete it. 
+
+INSERT INTO Nation (id, country_name, capital_name) values (55, &apos;Azerbaijan&apos;, &apos;Baku&apos;)
+SELECT country_name, capital_name, id FROM nation
+delete from nation where id = 55;</para>
+                        </popis_dotazu>
+                            <relacni_algebra>INSERT INTO NATION (ID, COUNTRY_NAME, CAPITAL_NAME) 
+SELECT
+    55,
+    &apos;Azerbaijan&apos;,
+    &apos;Baku&apos;
+FROM NATION
+ORDER BY ID;
+DELETE FROM NATION WHERE ID = 55;</relacni_algebra>
+                            <sql>INSERT INTO NATION (ID, COUNTRY_NAME, CAPITAL_NAME) 
+SELECT 54, &apos;Azerbaijan&apos;, &apos;Baku&apos;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D32">
+                        <popis_dotazu>
+                                <para>Create a view of all communist countries and print them out</para>
+                        </popis_dotazu>
+                            <sql>CREATE OR REPLACE VIEW Communist_Block AS
+SELECT country_name
+FROM Nation NATURAL JOIN POLITICS
+WHERE ideology = &apos;Communism&apos;;
+
+SELECT DISTINCT * 
+FROM Communist_Block;
+</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D33">
+                        <popis_dotazu>
+                                <para>Update the records of the Argentina in sphere of politics
+- Make the country communist
+- Make it the member of Comintern fraction
+- Make the government support 94%
+- Remain the geography same
+
+And show it as a Comintern member</para>
+                        </popis_dotazu>
+                            <sql>UPDATE Nation
+SET country_name = &apos;Argentina&apos;, capital_name = &apos;Buenos Aires&apos;
+FROM (SELECT country_name, capital_name FROM Nation) AS Nation1
+WHERE id = 43;
+
+UPDATE Politics
+SET fraction = &apos;Comintern&apos;, gover_supp = 94, ideology = &apos;Communism&apos;
+FROM (SELECT fraction, gover_supp, ideology FROM Politics) AS Politics1
+WHERE nation_id = 43;
+
+SELECT DISTINCT country_name, ideology, fraction
+FROM NATION NATURAL JOIN POLITICS
+WHERE id = 43;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D34">
+                        <popis_dotazu>
+                                <para>Group and show the axis powers ordered</para>
+                        </popis_dotazu>
+                            <sql>SELECT country_name
+FROM Nation NATURAL JOIN Politics
+WHERE fraction = &apos;Axis&apos;
+GROUP BY country_name
+ORDER BY country_name</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D35">
+                        <popis_dotazu>
+                                <para>Group and show the axis powers and their nuclear arsenal by the number of nukes that are lesser than 2000</para>
+                        </popis_dotazu>
+                            <sql>SELECT COUNTRY_NAME, NUKE
+FROM NATION NATURAL JOIN SOCIETY NATURAL JOIN POLITICS NATURAL JOIN MILLITARISM
+WHERE (FRACTION = &apos;Axis&apos;)
+GROUP BY COUNTRY_NAME, NUKE
+HAVING MAX(NUKE) &lt; 2000
+ORDER BY NUKE
+
+
+</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D36">
+                        <popis_dotazu>
+                                <para>Print the characteristics of countris that have an intersection between them being democratic or being member of allies fraction</para>
+                        </popis_dotazu>
+                            <sql>SELECT DISTINCT * 
+FROM NATION NATURAL JOIN SOCIETY NATURAL JOIN POLITICS
+WHERE (IDEOLOGY = &apos;Democracy&apos;)
+
+INTERSECT
+
+SELECT DISTINCT *
+FROM NATION NATURAL JOIN SOCIETY NATURAL JOIN POLITICS
+WHERE (Fraction = &apos;Allies&apos;)
+</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D38">
+                        <popis_dotazu>
+                                <para>Show the list of Axis or Comintern nations and sort the list by the fraction </para>
+                        </popis_dotazu>
+                            <sql>SELECT DISTINCT COUNTRY_NAME, FRACTION
+FROM NATION NATURAL JOIN POLITICS
+WHERE FRACTION = &apos;Axis&apos;
+UNION
+SELECT DISTINCT COUNTRY_NAME, FRACTION
+FROM NATION NATURAL JOIN POLITICS
+WHERE FRACTION = &apos;Comintern&apos;
+ORDER BY FRACTION</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D39">
+                        <popis_dotazu>
+                                <para>Show the most corrupted countries </para>
+                        </popis_dotazu>
+                            <sql>SELECT DISTINCT *
+FROM NATION N JOIN ECONOMY E ON (N.id=E.id AND E.CURRUPTION_RATE &gt; 90)
+
+</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D40">
+                        <popis_dotazu>
+                                <para>Show countries with lowest happiness (20) and show only with same id</para>
+                        </popis_dotazu>
+                            <sql>SELECT COUNTRY_NAME
+FROM SOCIETY S RIGHT JOIN NATION N ON (N.id=S.id AND S.HAPPINESS &lt; 20)</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D41">
+                        <popis_dotazu>
+                                <para>Show countries that have more tanks than nukes, however the number of nukes has to be more than 4000</para>
+                        </popis_dotazu>
+                            <sql>SELECT COUNTRY_NAME
+FROM NATION N
+FULL OUTER JOIN MILLITARISM M
+ON N.ID = M.ID
+WHERE tank_num &gt; nuke AND nuke &gt; 4000;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D42">
+                        <popis_dotazu>
+                                <para>Show the nations that are in fractions as the boolean status</para>
+                        </popis_dotazu>
+                            <sql>SELECT COUNTRY_NAME, FRACTION, 
+       (select COUNT(*)
+        from POLITICS P
+        where P.ID = N.ID AND p.fraction != &apos;None&apos;) as STATUS
+FROM NATION NATURAL JOIN POLITICS N;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D43">
+                        <popis_dotazu>
+                                <para>Show the ID of the Soviet Union with the type of the war going on, except for the type itself</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{nation*at_war}[id,type_of_war] ÷ at_war[type_of_war]</relacni_algebra>
+                            <sql>SELECT DISTINCT id
+FROM (
+    SELECT DISTINCT id,
+                    type_of_war
+    FROM NATION
+    NATURAL JOIN AT_WAR
+) R1
+EXCEPT
+SELECT DISTINCT id
+FROM (
+    SELECT DISTINCT *
+    FROM (
+        SELECT DISTINCT id
+        FROM (
+            SELECT DISTINCT id,
+                            type_of_war
+            FROM NATION
+            NATURAL JOIN AT_WAR
+        ) R1
+    ) R2
+    CROSS JOIN (
+        SELECT DISTINCT type_of_war
+        FROM AT_WAR AT_WAR1
+    ) R3
+    EXCEPT
+    SELECT DISTINCT id,
+                    type_of_war
+    FROM NATION
+    NATURAL JOIN AT_WAR
+) R4;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D44">
+                        <popis_dotazu>
+                                <para>This query is the continuation of the previous query; show the Soviet Union&apos;s ids that have no type of the war (if it is going on), except for its id </para>
+                        </popis_dotazu>
+                            <relacni_algebra>nation(id = 1)[id]\at_war[id]</relacni_algebra>
+                            <sql>SELECT DISTINCT id
+FROM NATION
+WHERE id = 1
+EXCEPT
+SELECT DISTINCT id
+FROM AT_WAR;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D45">
+                        <popis_dotazu>
+                                <para>Show countries that have 0% of corruption.</para>
+                        </popis_dotazu>
+                            <sql>SELECT COUNTRY_NAME
+FROM NATION NATURAL JOIN ECONOMY
+WHERE (CURRUPTION_RATE IN (SELECT CURRUPTION_RATE FROM ECONOMY)) AND CURRUPTION_RATE = 0;
+
+SELECT COUNTRY_NAME
+FROM NATION NATURAL JOIN ECONOMY
+WHERE EXISTS (SELECT CURRUPTION_RATE FROM ECONOMY) AND CURRUPTION_RATE = 0;
+
+SELECT COUNTRY_NAME
+FROM NATION NATURAL JOIN ECONOMY
+WHERE CURRUPTION_RATE = 0;
+
+
+</sql>
+                    </dotaz>
+            </dotazy>
+            <pokryti_dotazu>
+                        <radek>
+                            <kategorie>A</kategorie>
+                            <odkazy>
+                                    <link url="#D1">D1</link>
+                                    <link url="#D2">D2</link>
+                                    <link url="#D3">D3</link>
+                                    <link url="#D4">D4</link>
+                                    <link url="#D5">D5</link>
+                                    <link url="#D6">D6</link>
+                                    <link url="#D7">D7</link>
+                                    <link url="#D8">D8</link>
+                                    <link url="#D9">D9</link>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D13">D13</link>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D22">D22</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D26">D26</link>
+                                    <link url="#D32">D32</link>
+                                    <link url="#D33">D33</link>
+                                    <link url="#D34">D34</link>
+                                    <link url="#D35">D35</link>
+                                    <link url="#D36">D36</link>
+                                    <link url="#D38">D38</link>
+                                    <link url="#D39">D39</link>
+                                    <link url="#D40">D40</link>
+                                    <link url="#D41">D41</link>
+                                    <link url="#D42">D42</link>
+                                    <link url="#D43">D43</link>
+                                    <link url="#D45">D45</link>
+                            </odkazy>
+                            <kategorie_popis>A - Positive query on at least two joined tables</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>AR</kategorie>
+                            <odkazy>
+                                    <link url="#D1">D1</link>
+                                    <link url="#D2">D2</link>
+                                    <link url="#D3">D3</link>
+                                    <link url="#D4">D4</link>
+                                    <link url="#D5">D5</link>
+                                    <link url="#D6">D6</link>
+                                    <link url="#D7">D7</link>
+                                    <link url="#D8">D8</link>
+                                    <link url="#D9">D9</link>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D13">D13</link>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D22">D22</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D26">D26</link>
+                                    <link url="#D43">D43</link>
+                            </odkazy>
+                            <kategorie_popis>A (RA) - Positive query on at least two joined tables</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>B</kategorie>
+                            <odkazy>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D25">D25</link>
+                            </odkazy>
+                            <kategorie_popis>B - Negative query on at least two joined tables</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>C</kategorie>
+                            <odkazy>
+                                    <link url="#D3">D3</link>
+                                    <link url="#D4">D4</link>
+                                    <link url="#D5">D5</link>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D15">D15</link>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>C - Select only those related to...</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>CR</kategorie>
+                            <odkazy>
+                                    <link url="#D3">D3</link>
+                                    <link url="#D4">D4</link>
+                                    <link url="#D5">D5</link>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D15">D15</link>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D25">D25</link>
+                            </odkazy>
+                            <kategorie_popis>C (RA) - Select only those related to...</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>D1</kategorie>
+                            <odkazy>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D25">D25</link>
+                            </odkazy>
+                            <kategorie_popis>D1 - Select all related to - universal quantification query</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>D2</kategorie>
+                            <odkazy>
+                                    <link url="#D44">D44</link>
+                            </odkazy>
+                            <kategorie_popis>D2 - Result check of D1 query</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F1</kategorie>
+                            <odkazy>
+                                    <link url="#D39">D39</link>
+                            </odkazy>
+                            <kategorie_popis>F1 - JOIN ON</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F2</kategorie>
+                            <odkazy>
+                                    <link url="#D1">D1</link>
+                                    <link url="#D2">D2</link>
+                                    <link url="#D3">D3</link>
+                                    <link url="#D4">D4</link>
+                                    <link url="#D5">D5</link>
+                                    <link url="#D6">D6</link>
+                                    <link url="#D7">D7</link>
+                                    <link url="#D8">D8</link>
+                                    <link url="#D9">D9</link>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D13">D13</link>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D22">D22</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D26">D26</link>
+                                    <link url="#D32">D32</link>
+                                    <link url="#D33">D33</link>
+                                    <link url="#D34">D34</link>
+                                    <link url="#D35">D35</link>
+                                    <link url="#D36">D36</link>
+                                    <link url="#D38">D38</link>
+                                    <link url="#D42">D42</link>
+                                    <link url="#D43">D43</link>
+                                    <link url="#D45">D45</link>
+                            </odkazy>
+                            <kategorie_popis>F2 - NATURAL JOIN|JOIN USING</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F2R</kategorie>
+                            <odkazy>
+                                    <link url="#D1">D1</link>
+                                    <link url="#D2">D2</link>
+                                    <link url="#D3">D3</link>
+                                    <link url="#D4">D4</link>
+                                    <link url="#D5">D5</link>
+                                    <link url="#D6">D6</link>
+                                    <link url="#D7">D7</link>
+                                    <link url="#D8">D8</link>
+                                    <link url="#D9">D9</link>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D13">D13</link>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D18">D18</link>
+                                    <link url="#D19">D19</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D22">D22</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D26">D26</link>
+                                    <link url="#D43">D43</link>
+                            </odkazy>
+                            <kategorie_popis>F2 (RA) - NATURAL JOIN|JOIN USING</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F3</kategorie>
+                            <odkazy>
+                                    <link url="#D27">D27</link>
+                                    <link url="#D43">D43</link>
+                            </odkazy>
+                            <kategorie_popis>F3 - CROSS JOIN</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F4</kategorie>
+                            <odkazy>
+                                    <link url="#D40">D40</link>
+                            </odkazy>
+                            <kategorie_popis>F4 - LEFT|RIGHT OUTER JOIN</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F5</kategorie>
+                            <odkazy>
+                                    <link url="#D41">D41</link>
+                            </odkazy>
+                            <kategorie_popis>F5 - FULL (OUTER) JOIN</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G1</kategorie>
+                            <odkazy>
+                                    <link url="#D28">D28</link>
+                                    <link url="#D29">D29</link>
+                                    <link url="#D45">D45</link>
+                            </odkazy>
+                            <kategorie_popis>G1 - Nested query in WHERE clause</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G2</kategorie>
+                            <odkazy>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D11">D11</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D33">D33</link>
+                                    <link url="#D43">D43</link>
+                            </odkazy>
+                            <kategorie_popis>G2 - Nested query in FROM clause</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G2R</kategorie>
+                            <odkazy>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D11">D11</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D43">D43</link>
+                            </odkazy>
+                            <kategorie_popis>G2 (RA) - Nested query in FROM clause</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G3</kategorie>
+                            <odkazy>
+                                    <link url="#D42">D42</link>
+                            </odkazy>
+                            <kategorie_popis>G3 - Nested query in SELECT clause</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G4</kategorie>
+                            <odkazy>
+                                    <link url="#D28">D28</link>
+                                    <link url="#D45">D45</link>
+                            </odkazy>
+                            <kategorie_popis>G4 - Correlated nested query (EXISTS|NOT EXISTS)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H1</kategorie>
+                            <odkazy>
+                                    <link url="#D38">D38</link>
+                            </odkazy>
+                            <kategorie_popis>H1 - Set unification - UNION</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H2</kategorie>
+                            <odkazy>
+                                    <link url="#D10">D10</link>
+                                    <link url="#D11">D11</link>
+                                    <link url="#D43">D43</link>
+                                    <link url="#D44">D44</link>
+                            </odkazy>
+                            <kategorie_popis>H2 - Set difference - MINUS or EXCEPT</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H3</kategorie>
+                            <odkazy>
+                                    <link url="#D36">D36</link>
+                            </odkazy>
+                            <kategorie_popis>H3 - Set intersection - INTERSECT</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I1</kategorie>
+                            <odkazy>
+                                    <link url="#D26">D26</link>
+                                    <link url="#D35">D35</link>
+                                    <link url="#D42">D42</link>
+                            </odkazy>
+                            <kategorie_popis>I1 - Aggregate functions (count|sum|min|max|avg)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I1R</kategorie>
+                            <odkazy>
+                                    <link url="#D26">D26</link>
+                            </odkazy>
+                            <kategorie_popis>I1 (RA) - Aggregate functions (count|sum|min|max|avg)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I2</kategorie>
+                            <odkazy>
+                                    <link url="#D34">D34</link>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>I2 - Aggregate function over grouped rows - GROUP BY (HAVING)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>J</kategorie>
+                            <odkazy>
+                                    <link url="#D45">D45</link>
+                            </odkazy>
+                            <kategorie_popis>J - Same query in 3 different sql statements</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>K</kategorie>
+                            <odkazy>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>K - All clauses in one query - SELECT FROM WHERE GROUP BY HAVING ORDER BY</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>L</kategorie>
+                            <odkazy>
+                                    <link url="#D32">D32</link>
+                            </odkazy>
+                            <kategorie_popis>L - View</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>M</kategorie>
+                            <odkazy>
+                                    <link url="#D16">D16</link>
+                            </odkazy>
+                            <kategorie_popis>M - Query over a view</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>N</kategorie>
+                            <odkazy>
+                                    <link url="#D30">D30</link>
+                            </odkazy>
+                            <kategorie_popis>N - INSERT, which insert a set of rows, which are the result of another subquery (an INSERT command which has VALUES clause replaced by a nested query.</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>O</kategorie>
+                            <odkazy>
+                                    <link url="#D33">D33</link>
+                            </odkazy>
+                            <kategorie_popis>O - UPDATE with nested SELECT statement</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>P</kategorie>
+                            <odkazy>
+                                    <link url="#D29">D29</link>
+                            </odkazy>
+                            <kategorie_popis>P - DELETE with nested SELECT statement</kategorie_popis>
+                        </radek>
+            </pokryti_dotazu>
+        </queries>
+        <scripts>
+            <title>Scripts</title>
+            <para>
+                <link url="./create.sql">create.sql</link>
+            </para>
+            <para>
+                <link url="./insert.sql">insert.sql</link>
+            </para>
+        </scripts>
+        <conclussions>
+            <title>Conclusion</title>
+                    <para>KGB has a lot of data about countries, so be careful.</para>
+                    <para></para>
+                    <para>**☭ KGB Is Watching You! **</para>
+        </conclussions>
+        <references>
+            <title>References</title>
+                    <para>Our teachers </para>
+        </references>
+    </content>
+</sproject>
